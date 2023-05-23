@@ -1,20 +1,30 @@
 name: DAST
+
 on:
   workflow_call:
 
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
-    name: Scan the webapplication
+    name: Scan the web application
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           ref: main
+
+      - name: Set up ZAP
+        run: |
+          mkdir -p $HOME/.zap/wrk/
+          echo "Configuring ZAP options..."
+          echo "-config api.disablekey=true" >> $HOME/.zap/wrk/zap.options
+          echo "-config api.addrs.addr.name=.*" >> $HOME/.zap/wrk/zap.options
+          echo "-config api.addrs.addr.regex=true" >> $HOME/.zap/wrk/zap.options
+
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.7.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
           target: 'https://daps-pen.int.demo.catena-x.net'
-          zap_options: '-config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true'
+          cmd_options: "-configfile $HOME/.zap/wrk/zap.options"
