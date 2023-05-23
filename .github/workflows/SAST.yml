@@ -89,7 +89,7 @@ jobs:
   semgrep:
     needs: [CodeQL]
     # User-definable name of this GitHub Actions job:
-    name: SAST Semgrep
+    name: Semgrep
     # If you are self-hosting, change the following `runs-on` value: 
     runs-on: ubuntu-latest
    
