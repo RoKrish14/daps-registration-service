@@ -42,5 +42,3 @@ jobs:
     name: DAST Scan
     uses: ./.github/workflows/DAST.yml
     secrets: inherit
-
-
