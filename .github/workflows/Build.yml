@@ -6,6 +6,11 @@ on:
 jobs:
   #name of job, free choice, could also give a name
   build:
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
     #runner
     runs-on: ubuntu-latest
     steps:
