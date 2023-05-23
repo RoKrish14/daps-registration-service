@@ -16,4 +16,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
-          target: 'https://irs-pen.int.demo.catena-x.net/'
+          target: 'https://daps-pen.int.demo.catena-x.net'
