@@ -1,4 +1,12 @@
-name: OWASP dependency scanner
+#########################################################################################
+#
+#  Copyright (c) 2023 ZF Friedrichshafen AG
+#  Author: Rohan Krishnamurthy
+#  E-mail: rohan.krishnamurthy@zf.com
+#
+#########################################################################################
+
+name: OWASP, Trivy, and KICKS Vulnerability Scan
 
 on:
   workflow_call:
@@ -6,10 +14,10 @@ on:
 jobs:
   analyze:
     runs-on: ubuntu-latest
-    
-    name: owasp-check
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -17,18 +25,47 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Cache maven packages
+      - name: Cache Maven packages
         uses: actions/cache@v3
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: run maven owasp plugin
+      - name: Run OWASP Dependency Checker
         run: mvn --batch-mode install -Pdependency-check -DskipTests
 
-      - name: upload results
+      - name: Upload OWASP Dependency Check results
         if: always()
         uses: actions/upload-artifact@v3
         with:
           path: 'target/dependency-check-report.html'
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "config"
+          exit-code: "1"
+          hide-progress: false
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH"
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        if: always()
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: "trivy-results.sarif"
+
+      - name: Run KICKS vulnerability scanner
+        uses: txiaozhe/KICKS@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          output: "kicks-results.json"
+          format: "sarif"
+
+      - name: Upload KICKS scan results to GitHub Security tab
+        if: always()
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: "kicks-results.json"
