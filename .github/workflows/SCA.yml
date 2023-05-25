@@ -58,7 +58,7 @@ jobs:
           sarif_file: "trivy-results.sarif"
 
       - name: Run KICKS vulnerability scanner
-        uses: txiaozhe/KICKS@main
+        uses: checkmarx/kics-github-action@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           output: "kicks-results.json"
