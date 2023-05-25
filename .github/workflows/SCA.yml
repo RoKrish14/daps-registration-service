@@ -12,7 +12,7 @@ on:
   workflow_call:
 
 jobs:
-  analyze:
+  IAC:
     runs-on: ubuntu-latest
 
     steps:
