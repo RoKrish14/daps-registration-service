@@ -20,7 +20,7 @@ jobs:
     #https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idsecretsinherit
 
   SCA:
-    needs: Build
+    #needs: Build
     name: SCA
     uses: ./.github/workflows/SCA.yml
     secrets: inherit
