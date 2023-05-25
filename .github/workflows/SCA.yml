@@ -63,8 +63,8 @@ jobs:
           path: "."
           fail_on: high
           disable_secrets: true
-          output_path: kicsResults/
-          output_formats: "json,sarif"
+          #output_path: kicsResults/
+          #output_formats: "json,sarif"
 
       - name: Upload KICKS scan results to GitHub Security tab
         if: always()
