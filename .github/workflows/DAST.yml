@@ -5,7 +5,7 @@ on:
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
-    name: Scan the webapplication
+    name: DAST Scan
     steps:
       - name: Checkout
         uses: actions/checkout@v2
