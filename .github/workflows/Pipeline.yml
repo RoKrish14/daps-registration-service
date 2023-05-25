@@ -20,8 +20,7 @@ jobs:
     #https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idsecretsinherit
 
   SCA:
-    #needs: Build
-    name: KICKS/Trivy/OWASPDepCheck
+    name: KICKS-Trivy-OWASPDepCheck
     uses: ./.github/workflows/SCA.yml
     secrets: inherit
 
