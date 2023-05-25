@@ -60,9 +60,11 @@ jobs:
       - name: Run KICKS vulnerability scanner
         uses: checkmarx/kics-github-action@master
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          output: "kicks-results.json"
-          format: "sarif"
+          path: "."
+          fail_on: high
+          disable_secrets: true
+          output_path: kicsResults/
+          output_formats: "json,sarif"
 
       - name: Upload KICKS scan results to GitHub Security tab
         if: always()
