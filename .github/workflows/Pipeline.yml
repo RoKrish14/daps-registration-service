@@ -21,7 +21,7 @@ jobs:
 
   SCA:
     #needs: Build
-    name: SCA
+    name: KICKS/Trivy/OWASPDepCheck
     uses: ./.github/workflows/SCA.yml
     secrets: inherit
 
@@ -32,7 +32,7 @@ jobs:
     secrets: inherit
 
   DAST:
-    name: DAST Scan
+    name: OWASP ZAP
     uses: ./.github/workflows/DAST.yml
     secrets: inherit
 
