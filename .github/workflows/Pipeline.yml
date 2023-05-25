@@ -31,14 +31,7 @@ jobs:
     uses: ./.github/workflows/SAST.yml
     secrets: inherit
 
-  IAC:
-    needs: Build
-    name: KICKS
-    uses: ./.github/workflows/IAC.yml
-    secrets: inherit
-
   DAST:
-    needs: Build
     name: DAST Scan
     uses: ./.github/workflows/DAST.yml
     secrets: inherit
