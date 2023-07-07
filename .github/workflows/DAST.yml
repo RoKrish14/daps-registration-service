@@ -16,4 +16,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
-          target: 'https://github.com/eclipse-tractusx/managed-identity-wallets-archived'
+          target: 'https://managed-identity-wallets.dev.demo.catena-x.net/'
