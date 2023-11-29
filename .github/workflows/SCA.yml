@@ -41,21 +41,21 @@ jobs:
         with:
           path: 'target/dependency-check-report.html'
 
-      - name: Run Trivy vulnerability scanner
+      - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: "config"
           exit-code: "1"
           hide-progress: false
           format: "sarif"
-          output: "trivy-results.sarif"
+          output: "trivy-results1.sarif"
           severity: "CRITICAL,HIGH"
 
       - name: Upload Trivy scan results to GitHub Security tab
-        if: always()
         uses: github/codeql-action/upload-sarif@v2
+        if: always()
         with:
-          sarif_file: "trivy-results.sarif"
+          sarif_file: "trivy-results1.sarif"
 
       - name: Run KICKS vulnerability scanner
         uses: checkmarx/kics-github-action@master
