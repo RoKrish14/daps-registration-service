@@ -34,5 +34,3 @@ jobs:
     name: OWASP ZAP
     uses: ./.github/workflows/DAST.yml
     secrets: inherit
-
-    
